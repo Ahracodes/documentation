@@ -166,6 +166,45 @@ Cancel`.
 
 .. _india/verify-e-invoice:
 
+Managing Negative Lines in E-Invoice
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+The government portal prohibits the submission of data with negative line values.
+To facilitate the inclusion of discount lines, effective handling of negative entries becomes essential.
+
+Negative Lines Conversion in E-Invoice
+**************************************
+
+When dealing with E-invoice entries, there may be scenarios where negative lines are encountered. These negative lines are typically employed to represent discounts or adjustments associated with specific products HSN and tax rate or global discounts.
+
+Consider the following example:
+
++---------------------------------------------------------------------------------------------------+
+|                                     **Product Details**                                           |
++=======================+==============+==================+==============+==============+===========+
+| **Product Name**      | **HSN Code** | **Tax Excluded** | **Quantity** | **GST Rate** | **Total** |
++-----------------------+--------------+------------------+--------------+--------------+-----------+
+| Product A             | 123456       | 1,000            | 1            |    18%       |    1,180  |
++-----------------------+--------------+------------------+--------------+--------------+-----------+
+| Product B             | 239345       | 1,500            | 2            |    5%        |    3,150  |
++-----------------------+--------------+------------------+--------------+--------------+-----------+
+| Discount on Product A | 123456       | -100             | 1            |    18%       |    -118   |
++-----------------------+--------------+------------------+--------------+--------------+-----------+
+
+For clarity, negative lines are converted into positive discounts based on the HSN Code and GST rate. Here's the transformed representation:
+
++-------------------------------------------------------------------------------------------------------------+
+|                                         **Product Details**                                                 |
++==================+==============+==================+==============+==============+==============+===========+
+| **Product Name** | **HSN Code** | **Tax Excluded** | **Quantity** | **Discount** | **GST Rate** | **Total** |
++------------------+--------------+------------------+--------------+--------------+--------------+-----------+
+| Product A        | 123456       | 1,000            | 1            | 100          |  18%         |  1,062    |
++------------------+--------------+------------------+--------------+--------------+--------------+-----------+
+| Product B        | 239345       | 1,500            | 2            | 0            |  5%          | 3,150     |
++------------------+--------------+------------------+--------------+--------------+--------------+-----------+
+
+In this conversion, negative lines have been transformed into positive discounts, maintaining accurate calculations based on the HSN Code and GST rate. This ensures a more straightforward and standardized representation in the E-invoice records.
+
 GST e-Invoice verification
 ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
