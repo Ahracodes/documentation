@@ -39,7 +39,7 @@ must be upgraded as well.
 
 Here are the steps we follow at Odoo to upgrade such databases:
 
-#. :ref:`Stop the devolopments and challenge them <upgrade/stop_developments>`  .
+#. :ref:`Stop the devolopments and challenge them <upgrade/stop_developments>`.
 #. :ref:`Request an upgraded database <upgrade/request_upgrade>`.
 #. :ref:`Make your module installable on an empty database <upgrade/empty_database>`.
 #. :ref:`Make your module installable on the upgraded database <upgrade/upgraded_database>`.
@@ -50,7 +50,7 @@ Here are the steps we follow at Odoo to upgrade such databases:
 .. _upgrade/stop_developments:
 
 Stop the developments
-=============================
+=====================
 
 Upgrade can be a tough process, starting it requires commitment and will block a significant amount of your development resources.
 If you decide to keep going for developments during that process,
@@ -77,7 +77,7 @@ lead to an eased upgrade process and reduce your technical debt.
 .. _upgrade/request_upgrade:
 
 Request an upgraded database
-======================================
+============================
 
 Once the developments have stopped for the custom modules and the implemented features have been
 challenged to remove redundancy and unnecessary code, the next step of the upgrade process is to
@@ -97,10 +97,107 @@ testing the upgrade.
 
 .. _upgrade/empty_database:
 
-Empty database
-===================================
+[WIP] Empty database
+====================
 
-TODO structurize empty database
+Before working on an upgraded test database, we recommend to make the custom developments work on an
+empty database in the targeted version of your upgrade.
+
+This ensures that the customization is compatible with the new version of Odoo, allows to analyse
+how does it behave and interact with the new features, and guarantees that they will not cause
+any issue when upgrading the database.
+Making the custom modules work in an empty database also helps avoiding changes and wrong
+configurations that might be present on the production database (like studio customization,
+customized website pages, mail templates or translations), which are not intrinsically related to the
+custom modules and that can raises unwanted issues in this stage of the upgraded process.
+
+To make custom modules work on an empty database we advise to follow this steps:
+
+  - :ref:`Make them installable <upgrade/empty_database/modules_installable>`
+  - :ref:`Test and fixes <upgrade/empty_database/test_fixes>`
+  - :ref:`Clean the code <upgrade/empty_database/clean_code>`
+  - :ref:`Make standard tests run successfully <upgrade/empty_database/standard_test>`
+
+.. TODO Check if needed
+.. At this stage, all the custom modules will be properly upgraded and fully functioning on an empty
+.. database and their code clean.
+.. It is ready to make the custom modules installable on the upgraded database.
+
+.. _upgrade/empty_database/modules_installable:
+
+Make custom modules installable
+-------------------------------
+
+The first step is to make the custom modules installable in the new Odoo version.
+This means, in a first instance, making sure there is no traceback or warnings when installing them.
+For this, install the custom modules (ideally, one by one) in an empty database targeting the new
+Odoo version and fix the tracebacks and warnings that arise from that.
+
+.. TODO Re-check and explain better the examples 
+
+This process will help detect issues during the installation of the modules.
+For example, invalid module dependencies, syntax changes (like the assets declaration, OWL updates,
+mail templates from Jinja to Qweb), non existing references to standard fields, models, views, etc.
+
+.. _upgrade/empty_database/test_fixes:
+
+Test and fixes
+--------------
+
+Once there are no more tracebacks when installing the modules, the next step is to test them.
+Even if the custom modules are installable in an empty database, this does not warranties there are
+no errors during their execution.
+Because of this, we encourage to test thoroughly all the customization to make sure everything
+is working as expected.
+
+This process will help detect further issues that are not identified during the module installation
+and can only be detected in runtime.
+For example, deprecated calls to standard python or OWL functions, non existing references to
+standard fields, etc.
+
+.. TODO Expand in the tests and their explanation
+
+We recommend to test all the customization, specially the following elements:
+
+  - Views
+  - Mail templates
+  - Reports
+  - Server actions and automated actions
+  - Changes in the standard workflows
+
+We also encourage to write automated tests to save time during the testing iterations, increase
+the coverage of the tests, and ensure that the changes and fixes introduced do not break the
+existing flows.
+If there are tests already implemented in the customization, make sure they are upgraded to the new
+Odoo version and run successfully, fixing issues that might be present.
+
+.. _upgrade/empty_database/clean_code:
+
+Clean the code
+--------------
+
+At this stage of the upgrade process, we also suggest to clean the code as much as possible.
+This includes: 
+
+  - Remove redundant and unnecessary code.
+  - Remove features that are now part of Odoo standard.
+  - Clean commented code if it is not needed anymore.
+  - Refactor the code (functions, fields, views, reports, etc.) if needed.
+
+.. _upgrade/empty_database/standard_test:
+
+Standard tests
+--------------
+
+Once the previous steps are completed, we advise to make sure all standard tests associated to the
+dependencies of the custom module pass.
+
+In case there are standard test failing, we suggest to analyze the reason for their failure:
+
+  - The customization changes the standard workflow: Adapt the standard test to your workflow
+  - The customization did not take into account a special flow: Adapt your customization to ensure
+    it works for all the standard workflows
+
 
 .. #. list of things to be adapted
 .. #. go in details on some of them
@@ -155,7 +252,7 @@ TODO structurize empty database
 .. _upgrade/upgraded_database:
 
 Upgraded database
-======================================
+=================
 
 .. Once your modules are installable and working properly (see
 .. :ref:`Testing your database <upgrade/test_your_db>`), it is time to make them work on an upgraded
@@ -185,7 +282,7 @@ Upgraded database
 .. _upgrade/testing_rehearsal:
 
 Testing and rehearsal
-==========================================
+=====================
 
 
 .. After this step, it is crucial to do another :ref:`round of testing <upgrade/test_your_db>` to
@@ -196,8 +293,9 @@ TODO reminders of testing
 TODO content rehearsal
 
 .. _upgrade/production:
+
 Production upgrade
-==========================================
+==================
 
 
 
