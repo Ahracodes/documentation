@@ -29,7 +29,6 @@ you must keep in mind what the goals of an upgrade are:
 #. Reduce the technical debt
 #. Benefit from security improvements
 
-
 With every new version of Odoo comes a bunch of changes,
 it can be addition but sometimes it also contains refactorization.
 All those changes can impact modules on which you have previously developed customization 
@@ -61,7 +60,6 @@ Those features will need to be re-upgraded and tested, everytime you change them
 This is why we recommend a complete freeze of the codebase when starting the upgrade process.
 Of course, you can still work on maintenance but developing new features is not productive.
 
-
 Once you have stopped development, it is a good practice to assess the developments made
 and compare them with the features introduced between you current version and the version you are targeting.
 Challenge the developments as much as possible, find functionnal workarounds.
@@ -81,10 +79,20 @@ lead to an eased upgrade process and reduce your technical debt.
 Request an upgraded database
 ======================================
 
-.. During that process, you can also :ref:`Request a test upgraded database
-.. <upgrade/request-test-database>` to ensure the request can be successfully processed
+Once the developments have stopped for the custom modules and the implemented features have been
+challenged to remove redundancy and unnecessary code, the next step of the upgrade process is to
+request an upgraded test database.
 
-TODO short explanation + link to upgrade doc
+To request the upgraded test database, you can follow the steps mentioned in 
+:ref:`obtaining an upgraded test database <upgrade/request-test-database>`, depending on the hosting
+type of your database.
+
+The purpose of this stage is not to start working with the custom modules in the upgraded database,
+but to make sure the standard upgrade process works seamlessly, and the test database is delivered
+properly.
+If that's not the case, and the upgrade request fails, you can request the assistance of Odoo via
+the `support page <https://odoo.com/help?stage=migration>`__ by selecting the option related to
+testing the upgrade. 
 
 
 .. _upgrade/empty_database:
