@@ -16,7 +16,7 @@ For numerous years, Odoo has followed this process, reaping the rewards of conti
 For a standard overview, please refer to the
 :doc:`upgrade documentation </administration/upgrade>`.
 
-We consider a custom module, any module that extends the standard code of Odoo and that was not built with studio. 
+We consider a custom module, any module that extends the standard code of Odoo and that was not built with the Studio app. 
 Before upgrading those modules, or before asking for them to be upgraded, 
 you might want to have a look at the :ref:`Service-level Agreement <upgrade/sla>` to make sure who's responsible for it.
 
@@ -58,7 +58,7 @@ you will inevitably have to block resources for a longer time to work on the upg
 Those features will need to be re-upgraded and tested, everytime you change them.
 
 This is why we recommend a complete freeze of the codebase when starting the upgrade process.
-Of course, you can still work on maintenance but developing new features is not productive.
+Of course, you can still work on bugfix but developing new features is not productive.
 
 Once you have stopped development, it is a good practice to assess the developments made
 and compare them with the features introduced between you current version and the version you are targeting.
@@ -106,22 +106,19 @@ empty database in the targeted version of your upgrade.
 This ensures that the customization is compatible with the new version of Odoo, allows to analyse
 how does it behave and interact with the new features, and guarantees that they will not cause
 any issue when upgrading the database.
+
 Making the custom modules work in an empty database also helps avoiding changes and wrong
 configurations that might be present on the production database (like studio customization,
-customized website pages, mail templates or translations), which are not intrinsically related to the
-custom modules and that can raises unwanted issues in this stage of the upgraded process.
+customized website pages, mail templates or translations). They are not intrinsically related to the
+custom modules and that can raise unwanted issues in this stage of the upgraded process.
 
-To make custom modules work on an empty database we advise to follow this steps:
+To make custom modules work on an empty database we advise to follow these steps:
 
   - :ref:`Make them installable <upgrade/empty_database/modules_installable>`
   - :ref:`Test and fixes <upgrade/empty_database/test_fixes>`
   - :ref:`Clean the code <upgrade/empty_database/clean_code>`
   - :ref:`Make standard tests run successfully <upgrade/empty_database/standard_test>`
 
-.. TODO Check if needed
-.. At this stage, all the custom modules will be properly upgraded and fully functioning on an empty
-.. database and their code clean.
-.. It is ready to make the custom modules installable on the upgraded database.
 
 .. _upgrade/empty_database/modules_installable:
 
@@ -130,14 +127,18 @@ Make custom modules installable
 
 The first step is to make the custom modules installable in the new Odoo version.
 This means, in a first instance, making sure there is no traceback or warnings when installing them.
-For this, install the custom modules (ideally, one by one) in an empty database targeting the new
+For this, install the custom modules, one by one, in an empty database of the new
 Odoo version and fix the tracebacks and warnings that arise from that.
 
-.. TODO Re-check and explain better the examples 
+.. TODO Re-check and explain better the examples, ideally add references to PR such as attrs change
 
 This process will help detect issues during the installation of the modules.
-For example, invalid module dependencies, syntax changes (like the assets declaration, OWL updates,
-mail templates from Jinja to Qweb), non existing references to standard fields, models, views, etc.
+For example:
+  - Invalid module dependencies
+  - Syntax change: assets declaration, OWL updates, attrs.
+  - References to standard fields, models not existing anymore or renamed.
+  - Xpath that moved or were removed.
+  - ...
 
 .. _upgrade/empty_database/test_fixes:
 
@@ -145,7 +146,7 @@ Test and fixes
 --------------
 
 Once there are no more tracebacks when installing the modules, the next step is to test them.
-Even if the custom modules are installable in an empty database, this does not warranties there are
+Even if the custom modules are installable on an empty database, this does not warranties there are
 no errors during their execution.
 Because of this, we encourage to test thoroughly all the customization to make sure everything
 is working as expected.
@@ -164,6 +165,13 @@ We recommend to test all the customization, specially the following elements:
   - Reports
   - Server actions and automated actions
   - Changes in the standard workflows
+
+
+
+.. For further information about testing a database, you can check this page: 
+.. :ref:`Testing the new version of the database <upgrade/test_your_db>`.
+.. This can also be applied to your custom modules on an empty database
+
 
 We also encourage to write automated tests to save time during the testing iterations, increase
 the coverage of the tests, and ensure that the changes and fixes introduced do not break the
@@ -192,6 +200,9 @@ Standard tests
 Once the previous steps are completed, we advise to make sure all standard tests associated to the
 dependencies of the custom module pass.
 
+Standard tests ensure the validation of the code logic but they also prevent data corruption.
+They will help you identify bugs or unwanted behavior before you work on your database.
+
 In case there are standard test failing, we suggest to analyze the reason for their failure:
 
   - The customization changes the standard workflow: Adapt the standard test to your workflow
@@ -199,8 +210,6 @@ In case there are standard test failing, we suggest to analyze the reason for th
     it works for all the standard workflows
 
 
-.. #. list of things to be adapted
-.. #. go in details on some of them
 
 .. Then, make your custom modules installable on a new, empty database to ensure dependencies are
 .. still correct, fields definitions are still valid, etc. This also require some :ref:`testing
