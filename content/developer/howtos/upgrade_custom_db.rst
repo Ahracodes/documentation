@@ -82,15 +82,15 @@ Once the developments have stopped for the custom modules and the implemented fe
 challenged to remove redundancy and unnecessary code, the next step of the upgrade process is to
 request an upgraded test database.
 
-To request the upgraded test database, you can follow the steps mentioned in 
+To request the upgraded test database, follow the steps mentioned in 
 :ref:`obtaining an upgraded test database <upgrade/request-test-database>`, depending on the hosting
 type of your database.
 
 The purpose of this stage is not to start working with the custom modules in the upgraded database,
 but to make sure the standard upgrade process works seamlessly, and the test database is delivered
-properly. If that's not the case, and the upgrade request fails, you can request the assistance of
-Odoo via the `support page <https://odoo.com/help?stage=migration>`__ by selecting the option
-related to testing the upgrade. 
+properly. If that's not the case, and the upgrade request fails, request the assistance of Odoo via
+the `support page <https://odoo.com/help?stage=migration>`__ by selecting the option related to
+testing the upgrade. 
 
 
 .. _upgrade/empty_database:
@@ -130,14 +130,14 @@ fix the tracebacks and warnings that arise from that.
 
 .. TODO Re-check and explain better the examples, ideally add references to PR such as attrs change
 
-This process will help detect issues during the installation of the modules.
-For example:
-  - Invalid module dependencies
-  - Syntax change: assets declaration, OWL updates, attrs.
-  - References to standard fields, models not existing anymore or renamed.
-  - Xpath that moved or were removed.
-  - Methods renamed or removed .
-  - ...
+This process will help detect issues during the installation of the modules. For example:
+
+- Invalid module dependencies
+- Syntax change: assets declaration, OWL updates, attrs.
+- References to standard fields, models not existing anymore or renamed.
+- Xpath that moved or were removed.
+- Methods renamed or removed .
+- ...
 
 .. _upgrade/empty_database/test_fixes:
 
@@ -182,7 +182,8 @@ At this stage of the upgrade process, we also suggest to clean the code as much 
 This includes: 
 
   - Remove redundant and unnecessary code.
-  - Remove features that are now part of Odoo standard.
+  - Remove features that are now part of Odoo standard, as described in the
+    :ref:`Stop the developments <upgrade/stop_developments>` section.
   - Clean commented code if it is not needed anymore.
   - Refactor the code (functions, fields, views, reports, etc.) if needed.
 
