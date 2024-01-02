@@ -210,30 +210,25 @@ In case there are standard test failing, we suggest to analyze the reason for th
 Upgraded database
 =================
 
-.. Once your modules are installable and working properly (see
-.. :ref:`Testing your database <upgrade/test_your_db>`), it is time to make them work on an upgraded
-.. database to ensure that they do not depend on a previous installation (e.g., modules already
-.. installed, data already present, etc.). During this process, you might have to develop
+Once the custom modules are installable and working properly in an empty database, it is time to
+make them work on an :ref:`upgraded database <upgrade/request-test-database>`.
+
+To make sure the custom code and the upgraded database are working flawlessly in the new version,
+follow these steps:
+
+- Test the custom modules
+.. TODO
+.. Make sure it is still working as expected, data is not lost, views and records are not disabled, etc
+- Migrate the data if needed
+.. TODO - Migration scripts
+.. During this process, you might have to develop
 .. :ref:`migration scripts <upgrade/migration-scripts>` to reflect changes in the source code of
-.. your custom modules to their corresponding data.
+.. your custom modules to their corresponding data
+- Test the upgraded database
+.. TODO
+.. For further information about testing the upgraded database, you can check this page: 
+.. :ref:`Testing the new version of the database <upgrade/test_your_db>`.
 
-
-.. TODO rephrase Reaching this step requires both the source code of your custom modules to be upgraded and a
-.. successful :ref:`upgrade request <upgrade/request-test-database>`. If that is the case, you can
-.. now test your modules on an upgraded database to ensure that the upgrade did not remove any
-.. data, and that your modules are still working properly.
-
-.. TODO migrate your data and migration scripts
-
-.. #. Detail "data to be migrated"
-
-.. When renaming fields in the process of upgrading the source code of your custom modules, the data
-.. from the old field must be migrated to the new one. This can be done via a :ref:`migration script
-.. <upgrade/migration-scripts>` using the `rename_field` method from the
-.. `upgrade-util package <https://github.com/odoo/upgrade-util/blob/220114f217f8643f5c28b681fe1a7e2c21449a03/src/util/fields.py#L336>`__.
-.. However, this only renames the field and column names. Therefore, custom views, reports, field
-.. relations, automated actions, etc., might still refer to the old field name and need to be
-.. updated in the :ref:`migration script <upgrade/migration-scripts>` as well.
 
 .. _upgrade/testing_rehearsal:
 
