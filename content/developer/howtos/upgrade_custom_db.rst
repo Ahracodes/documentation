@@ -8,17 +8,17 @@ Upgrading a customized database
 ===============================
 
 
-Upgrading to a new version of Odoo can be challenging, 
-especially if the database you work on contains custom modules.  
-This page intent is to explain the technical process of upgrading a database with customized modules.
-For numerous years, Odoo has followed this process, reaping the rewards of continual improvements along the way.
+Upgrading to a new version of Odoo can be challenging, especially if the database you work on
+contains custom modules. This page intent is to explain the technical process of upgrading a
+database with customized modules. For numerous years, Odoo has followed this process, reaping the
+rewards of continual improvements along the way.
 
-For a standard overview, please refer to the
-:doc:`upgrade documentation </administration/upgrade>`.
+For a standard overview, please refer to the :doc:`upgrade documentation </administration/upgrade>`.
 
-We consider a custom module, any module that extends the standard code of Odoo and that was not built with the Studio app. 
-Before upgrading those modules, or before asking for them to be upgraded, 
-you might want to have a look at the :ref:`Service-level Agreement <upgrade/sla>` to make sure who's responsible for it.
+We consider a custom module, any module that extends the standard code of Odoo and that was not
+built with the Studio app. 
+Before upgrading those modules, or before asking for them to be upgraded, you might want to have a
+look at the :ref:`Service-level Agreement <upgrade/sla>` to make sure who's responsible for it.
 
 While you work on what we refer to as the **custom upgrade** of your database, 
 you must keep in mind what the goals of an upgrade are:
@@ -29,11 +29,10 @@ you must keep in mind what the goals of an upgrade are:
 #. Reduce the technical debt
 #. Benefit from security improvements
 
-With every new version of Odoo comes a bunch of changes,
-it can be addition but sometimes it also contains refactorization.
-All those changes can impact modules on which you have previously developed customization 
-which is why you will need to adapt them.
-This is why upgrading a database that contains custom modules requires additional steps compared to 
+With every new version of Odoo comes a bunch of changes, it can be addition but sometimes it also
+contains refactorization. All those changes can impact modules on which you have previously
+developed customization which is why you will need to adapt them.
+This is why upgrading a database that contains custom modules requires additional steps compared to
 a standard upgrade of an Odoo database since the source code of the custom modules
 must be upgraded as well. 
 
@@ -52,26 +51,26 @@ Here are the steps we follow at Odoo to upgrade such databases:
 Stop the developments
 =====================
 
-Upgrade can be a tough process, starting it requires commitment and will block a significant amount of your development resources.
-If you decide to keep going for developments during that process,
-you will inevitably have to block resources for a longer time to work on the upgrade.
+Upgrade can be a tough process, starting it requires commitment and will block a significant amount
+of your development resources. If you decide to keep going for developments during that process, you
+will inevitably have to block resources for a longer time to work on the upgrade.
 Those features will need to be re-upgraded and tested, everytime you change them.
 
 This is why we recommend a complete freeze of the codebase when starting the upgrade process.
 Of course, you can still work on bugfix but developing new features is not productive.
 
-Once you have stopped development, it is a good practice to assess the developments made
-and compare them with the features introduced between you current version and the version you are targeting.
+Once you have stopped development, it is a good practice to assess the developments made and compare
+them with the features introduced between you current version and the version you are targeting.
 Challenge the developments as much as possible, find functionnal workarounds.
-Removing redundancy between your developments and the standard version of Odoo will
-lead to an eased upgrade process and reduce your technical debt.
+Removing redundancy between your developments and the standard version of Odoo will lead to an eased
+upgrade process and reduce your technical debt.
 
 
 .. note::
    You can find information on the changes between versions in the `release notes
    <https:/odoo.com/page/release-notes>`_. 
-   Those may seem light at first but 
-   they will help you point out what needs to be checked during the upgrade process.
+   Those may seem light at first but they will help you point out what needs to be checked during
+   the upgrade process.
 
 
 .. _upgrade/request_upgrade:
@@ -89,10 +88,9 @@ type of your database.
 
 The purpose of this stage is not to start working with the custom modules in the upgraded database,
 but to make sure the standard upgrade process works seamlessly, and the test database is delivered
-properly.
-If that's not the case, and the upgrade request fails, you can request the assistance of Odoo via
-the `support page <https://odoo.com/help?stage=migration>`__ by selecting the option related to
-testing the upgrade. 
+properly. If that's not the case, and the upgrade request fails, you can request the assistance of
+Odoo via the `support page <https://odoo.com/help?stage=migration>`__ by selecting the option
+related to testing the upgrade. 
 
 
 .. _upgrade/empty_database:
@@ -104,8 +102,8 @@ Before working on an upgraded test database, we recommend to make the custom dev
 empty database in the targeted version of your upgrade.
 
 This ensures that the customization is compatible with the new version of Odoo, allows to analyse
-how does it behave and interact with the new features, and guarantees that they will not cause
-any issue when upgrading the database.
+how does it behave and interact with the new features, and guarantees that they will not cause any
+issue when upgrading the database.
 
 Making the custom modules work in an empty database also helps avoiding changes and wrong
 configurations that might be present on the production database (like studio customization,
@@ -127,8 +125,8 @@ Make custom modules installable
 
 The first step is to make the custom modules installable in the new Odoo version.
 This means, in a first instance, making sure there is no traceback or warnings when installing them.
-For this, install the custom modules, one by one, in an empty database of the new
-Odoo version and fix the tracebacks and warnings that arise from that.
+For this, install the custom modules, one by one, in an empty database of the new Odoo version and
+fix the tracebacks and warnings that arise from that.
 
 .. TODO Re-check and explain better the examples, ideally add references to PR such as attrs change
 
@@ -148,16 +146,12 @@ Test and fixes
 
 Once there are no more tracebacks when installing the modules, the next step is to test them.
 Even if the custom modules are installable on an empty database, this does not warranties there are
-no errors during their execution.
-Because of this, we encourage to test thoroughly all the customization to make sure everything
-is working as expected.
+no errors during their execution. Because of this, we encourage to test thoroughly all the
+customization to make sure everything is working as expected.
 
 This process will help detect further issues that are not identified during the module installation
-and can only be detected in runtime.
-For example, deprecated calls to standard python or OWL functions, non existing references to
-standard fields, etc.
-
-.. TODO Expand in the tests and their explanation
+and can only be detected in runtime. For example, deprecated calls to standard python or OWL
+functions, non existing references to standard fields, etc.
 
 We recommend to test all the customization, specially the following elements:
 
@@ -174,9 +168,8 @@ We recommend to test all the customization, specially the following elements:
 .. This can also be applied to your custom modules on an empty database
 
 
-We also encourage to write automated tests to save time during the testing iterations, increase
-the coverage of the tests, and ensure that the changes and fixes introduced do not break the
-existing flows.
+We also encourage to write automated tests to save time during the testing iterations, increase the
+test coverage, and ensure that the changes and fixes introduced do not break the existing flows.
 If there are tests already implemented in the customization, make sure they are upgraded to the new
 Odoo version and run successfully, fixing issues that might be present.
 
