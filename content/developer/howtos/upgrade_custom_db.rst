@@ -138,6 +138,7 @@ For example:
   - Syntax change: assets declaration, OWL updates, attrs.
   - References to standard fields, models not existing anymore or renamed.
   - Xpath that moved or were removed.
+  - Methods renamed or removed .
   - ...
 
 .. _upgrade/empty_database/test_fixes:
@@ -208,54 +209,6 @@ In case there are standard test failing, we suggest to analyze the reason for th
   - The customization changes the standard workflow: Adapt the standard test to your workflow
   - The customization did not take into account a special flow: Adapt your customization to ensure
     it works for all the standard workflows
-
-
-
-.. Then, make your custom modules installable on a new, empty database to ensure dependencies are
-.. still correct, fields definitions are still valid, etc. This also require some :ref:`testing
-.. <upgrade/test_your_db>` to ensure that all the features of your modules are still working properly.
-
-
-.. Installing custom modules on an empty database allows you to detect any discrepancies between the
-.. source code of your modules and the new version of Odoo, such as missing dependencies in the
-.. manifest, broken fields relations, views containing deprecated fields, etc.
-
-.. TODO add why doing this on an empty DB
-
-..    TODO rewrite example (needs to be simpler)
-..    In Odoo 12 and before, the `account.invoice` model had a field named `refund_invoice_id` (`source
-..    code <https://github.com/odoo/odoo/blob/f7431b180834a73fe8d3aed290c275cc6f8dfa31/addons/account/models/account_invoice.py#L273>`_),
-..    which is absent on the `account.move` model after Odoo 13. This field was renamed to
-..    `reversed_entry_id` during the upgrade process. It is possible to find this information by
-..    searching for another Many2one field in `account.move` related to `account.move`, for example,
-..    `in Odoo 16 <https://github.com/odoo/odoo/blob/a0c1e2aa602ae46598a350ea6ae8d8b4a0c1c823/addons/account/models/account_move.py#L453>`_.
-
-
-.. TODO rephrase more rarely, models can also be renamed or merged into another model. In this case, if a custom
-.. model inherits from the renamed or merged model, its inherit attributes must be updated to match the
-.. new model name.
-
-..    - Between Odoo 12 and 13, the `account.invoice` model was merged into `account.move`.
-..    - Between Odoo 15 and 16, the `sale.subscription` model was merged into `sale.order`.
-..    - Between Odoo 15 and 16, the `account.analytic.group` model was renamed to `account.analytic.plan`.
-
-.. If a custom model overrides standard methods, you must ensure that their name still matches the
-.. name of the method they are overriding. In case of changes, you can search the method's source code
-.. in the new version to find its new name. If the method has been refactored, the source code might
-.. not exactly match, and a manual search is then required. The same goes for function calls to those methods.
-
-..    The `sale.subscription` model has a `_prepare_invoice_data` method `in Odoo 15
-..    <https://github.com/odoo/enterprise/blob/e07fd8650246d52c7289194dbe2b15b22c6b65e0/partner_commission/models/sale_subscription.py#L86-L92>`_
-..    that has been moved and renamed to `_prepare_invoice` in the `sale.order` model `of Odoo 16
-..    <https://github.com/odoo/enterprise/blob/b4182d863a3b925dc3fe082484c27dbb1f2a57d8/partner_commission/models/sale_order.py#L62-L68>`_.
-
-.. TODO rephrase mention attrs removal
-
-.. Custom views are usually also impacted with the upgrade, as they may refer fields, models, or
-.. other standard views that have been renamed or refactored. They should be adapted to the new
-.. version of Odoo to avoid errors when loading them.
-
-.. TODO once done
 
 
 .. _upgrade/upgraded_database:
