@@ -5,21 +5,22 @@ Migration scripts
 =================
 
 TODOUPG this page should be about migration scripts :
+
 #. What they are (python scripts that receives the psql cursor and the version)
 #. What they are for : applying a modification on the data of your database when upgrading a module
 #. In what circumstances you should use them : when changing the source code of your module between
-2 versions of Odoo
+   2 versions of Odoo
 #. How to write them : examples, upgrade-util package
-#. The different phases and what is their impact: pre no ORM, before module is loaded so before
-your new field gets created
-#. Where to put them : in <module_name>/migration**s**
-#. How to test them Odoo SH : branch in upgrade mode, push a commit, On-premise: receive your
-dump, run it and upgrade all modules via starting odoo-bin
+#. The different phases and what is their impact: pre no ORM, before module is loaded so before your
+   new field gets created
+#. Where to put them : in <module_name>/migrations
+#. How to test them Odoo SH : branch in upgrade mode, push a commit, On-premise: receive your dump,
+   run it and upgrade all modules via starting odoo-bin
 
 A migration script is a Python file containing a function called `migrate`, which the upgrade
 process invokes at the appropriate time. Typically, this function executes one or multiple SQL
 queries and can also access Odoo's ORM, as well as the `upgrade-util package
-<https://github.com/odoo/upgrade-util/>`__.
+<https://github.com/odoo/upgrade-util/>`_.
 
 .. example::
    Between Odoo 15 and Odoo 16, the `sale.subscription` model was merged into the `sale.order` model
@@ -97,7 +98,8 @@ template: :file:`<module_name>/migrations/<major_version>.<minor_version>/{pre|p
   the Accounting module, or :file:`sale_subscription` for the Subscriptions module.
 - :file:`<major_version>` corresponds to the major version of Odoo (e.g., :file:`16.0` for Odoo 16).
 - :file:`<minor_version>` corresponds to the minor version of the module (e.g., :file:`1.2` for the
-  `Accounting module in Odoo 16 <https://github.com/odoo/odoo/blob/c8a738610778d110734ca5b9b9cfe8723f70f8ce/addons/account/__manifest__.py#L5C17-L5C22>`_).
+  `Accounting module in Odoo 16
+  <https://github.com/odoo/odoo/blob/16.0/addons/account/__manifest__.py#L5C17-L5C22>`_).
 - :file:`<pre|post|end>` corresponds to :ref:`the phase of the migration script
   <upgrade/migration-scripts-phases>`.
 - :file:`*.py` corresponds to the name of the migration script. Its name will determine the order in
