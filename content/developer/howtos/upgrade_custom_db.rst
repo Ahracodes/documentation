@@ -1,24 +1,28 @@
 :show-content:
-:show-toc:
 
-.. _upgrade/upgrade_custom_db:
+.. _upgrade_custom/upgrade_custom_db:
 
 ===============================
 Upgrading a customized database
 ===============================
 
+.. toctree::
+    :titlesonly:
+    :glob:
+
+    upgrade/*
 
 Upgrading to a new version of Odoo can be challenging, especially if the database you work on
 contains custom modules. This page intent is to explain the technical process of upgrading a
 database with customized modules. For numerous years, Odoo has followed this process, reaping the
 rewards of continual improvements along the way.
 
-For a standard overview, please refer to the :doc:`upgrade documentation </administration/upgrade>`.
+For a standard overview, please refer to the :doc:`Upgrade documentation </administration/upgrade>`.
 
 We consider a custom module, any module that extends the standard code of Odoo and that was not
 built with the Studio app. 
 Before upgrading those modules, or before asking for them to be upgraded, you might want to have a
-look at the :ref:`Service-level Agreement <upgrade/sla>` to make sure who's responsible for it.
+look at the :ref:`upgrade/sla` to make sure who's responsible for it.
 
 While you work on what we refer to as the **custom upgrade** of your database, 
 you must keep in mind what the goals of an upgrade are:
@@ -38,15 +42,15 @@ must be upgraded as well.
 
 Here are the steps we follow at Odoo to upgrade such databases:
 
-#. :ref:`Stop the devolopments and challenge them <upgrade/stop_developments>`.
-#. :ref:`Request an upgraded database <upgrade/request_upgrade>`.
-#. :ref:`Make your module installable on an empty database <upgrade/empty_database>`.
-#. :ref:`Make your module installable on the upgraded database <upgrade/upgraded_database>`.
-#. :ref:`Test extensively and do a rehearsal <upgrade/testing_rehearsal>`.
-#. :ref:`Upgrade in production <upgrade/production>`.
+#. :ref:`Stop the devolopments and challenge them <upgrade_custom/stop_developments>`.
+#. :ref:`upgrade_custom/request_upgrade`.
+#. :ref:`Make your module installable on an empty database <upgrade_custom/empty_database>`.
+#. :ref:`Make your module installable on the upgraded database <upgrade_custom/upgraded_database>`.
+#. :ref:`Test extensively and do a rehearsal <upgrade_custom/testing_rehearsal>`.
+#. :ref:`Upgrade in production <upgrade_custom/production>`.
 
 
-.. _upgrade/stop_developments:
+.. _upgrade_custom/stop_developments:
 
 Stop the developments
 =====================
@@ -73,7 +77,7 @@ upgrade process and reduce your technical debt.
    the upgrade process.
 
 
-.. _upgrade/request_upgrade:
+.. _upgrade_custom/request_upgrade:
 
 Request an upgraded database
 ============================
@@ -82,18 +86,17 @@ Once the developments have stopped for the custom modules and the implemented fe
 challenged to remove redundancy and unnecessary code, the next step of the upgrade process is to
 request an upgraded test database.
 
-To request the upgraded test database, follow the steps mentioned in 
-:ref:`obtaining an upgraded test database <upgrade/request-test-database>`, depending on the hosting
-type of your database.
+To request the upgraded test database, follow the steps mentioned in
+:ref:`upgrade/request-test-database`, depending on the hosting type of your database.
 
 The purpose of this stage is not to start working with the custom modules in the upgraded database,
 but to make sure the standard upgrade process works seamlessly, and the test database is delivered
 properly. If that's not the case, and the upgrade request fails, request the assistance of Odoo via
-the `support page <https://odoo.com/help?stage=migration>`__ by selecting the option related to
+the `support page <https://odoo.com/help?stage=migration>`_ by selecting the option related to
 testing the upgrade. 
 
 
-.. _upgrade/empty_database:
+.. _upgrade_custom/empty_database:
 
 [WIP] Empty database
 ====================
@@ -107,18 +110,18 @@ issue when upgrading the database.
 
 Making the custom modules work in an empty database also helps avoiding changes and wrong
 configurations that might be present on the production database (like studio customization,
-customized website pages, mail templates or translations). They are not intrinsically related to the
-custom modules and that can raise unwanted issues in this stage of the upgraded process.
+customized website pages, email templates or translations). They are not intrinsically related to
+the custom modules and that can raise unwanted issues in this stage of the upgraded process.
 
 To make custom modules work on an empty database we advise to follow these steps:
 
-  - :ref:`Make them installable <upgrade/empty_database/modules_installable>`
-  - :ref:`Test and fixes <upgrade/empty_database/test_fixes>`
-  - :ref:`Clean the code <upgrade/empty_database/clean_code>`
-  - :ref:`Make standard tests run successfully <upgrade/empty_database/standard_test>`
+  - :ref:`Make them installable <upgrade_custom/empty_database/modules_installable>`
+  - :ref:`upgrade_custom/empty_database/test_fixes`
+  - :ref:`upgrade_custom/empty_database/clean_code`
+  - :ref:`Make standard tests run successfully <upgrade_custom/empty_database/standard_test>`
 
 
-.. _upgrade/empty_database/modules_installable:
+.. _upgrade_custom/empty_database/modules_installable:
 
 Make custom modules installable
 -------------------------------
@@ -139,7 +142,7 @@ This process will help detect issues during the installation of the modules. For
 - Methods renamed or removed .
 - ...
 
-.. _upgrade/empty_database/test_fixes:
+.. _upgrade_custom/empty_database/test_fixes:
 
 Test and fixes
 --------------
@@ -156,24 +159,17 @@ functions, non existing references to standard fields, etc.
 We recommend to test all the customization, specially the following elements:
 
   - Views
-  - Mail templates
+  - Email templates
   - Reports
   - Server actions and automated actions
   - Changes in the standard workflows
-
-
-
-.. For further information about testing a database, you can check this page: 
-.. :ref:`Testing the new version of the database <upgrade/test_your_db>`.
-.. This can also be applied to your custom modules on an empty database
-
 
 We also encourage to write automated tests to save time during the testing iterations, increase the
 test coverage, and ensure that the changes and fixes introduced do not break the existing flows.
 If there are tests already implemented in the customization, make sure they are upgraded to the new
 Odoo version and run successfully, fixing issues that might be present.
 
-.. _upgrade/empty_database/clean_code:
+.. _upgrade_custom/empty_database/clean_code:
 
 Clean the code
 --------------
@@ -182,12 +178,12 @@ At this stage of the upgrade process, we also suggest to clean the code as much 
 This includes: 
 
   - Remove redundant and unnecessary code.
-  - Remove features that are now part of Odoo standard, as described in the
-    :ref:`Stop the developments <upgrade/stop_developments>` section.
+  - Remove features that are now part of Odoo standard, as described in
+    :ref:`upgrade_custom/stop_developments`.
   - Clean commented code if it is not needed anymore.
   - Refactor the code (functions, fields, views, reports, etc.) if needed.
 
-.. _upgrade/empty_database/standard_test:
+.. _upgrade_custom/empty_database/standard_test:
 
 Standard tests
 --------------
@@ -205,7 +201,7 @@ In case there are standard test failing, we suggest to analyze the reason for th
     it works for all the standard workflows
 
 
-.. _upgrade/upgraded_database:
+.. _upgrade_custom/upgraded_database:
 
 Upgraded database
 =================
@@ -213,44 +209,87 @@ Upgraded database
 Once the custom modules are installable and working properly in an empty database, it is time to
 make them work on an :ref:`upgraded database <upgrade/request-test-database>`.
 
-To make sure the custom code and the upgraded database are working flawlessly in the new version,
-follow these steps:
+To make sure the custom code is working flawlessly in the new version, follow these steps:
 
-- Test the custom modules
-.. TODO
-.. Make sure it is still working as expected, data is not lost, views and records are not disabled, etc
-- Migrate the data if needed
-.. TODO - Migration scripts
-.. During this process, you might have to develop
-.. :ref:`migration scripts <upgrade/migration-scripts>` to reflect changes in the source code of
-.. your custom modules to their corresponding data
-- Test the upgraded database
-.. TODO
-.. For further information about testing the upgraded database, you can check this page: 
-.. :ref:`Testing the new version of the database <upgrade/test_your_db>`.
+- :ref:`upgrade_custom/upgraded_database/migrate_data`
+- :ref:`upgrade_custom/upgraded_database/test_custom`
+
+.. _upgrade_custom/upgraded_database/migrate_data:
+
+Migrate the data
+----------------
+
+.. TODO - Check
+
+During the upgrade of the custom modules, you might have to use :ref:`upgrade/migration-scripts`
+to reflect changes from the source code to their corresponding data.
+
+Any technical data that was renamed during the upgrade of the custom code (models, fields, external
+identifiers) should be renamed using migration scripts to avoid data loss during the module upgrade.
+.. TODO Example: rename_field, rename_model, rename_module, rename_xmlid
+
+Data from standard models removed in the source code of the newer Odoo version and from the database
+during the standard upgrade process, might need to be recovered from the old model table if it is
+stil present.
+.. TODO Add example with subscription or account.invoice
+
+Migration scripts can also be used to ease the processing time of an upgrade. For example, they can
+be used to store the value of computed stored fields on models with an excesive amount of records by
+using SQL queries.
+They can also be used to recompute fields in case the computation of their value has changed.
+.. TODO Example: recompute_fields
+
+Migration scripts can also be used to:
+
+- Uninstall unwanted custom modules.
+  .. TODO Example: remove_module
+- Correct faulty data or wrong configurations.
+
+.. _upgrade_custom/upgraded_database/test_custom:
+
+Test the custom modules
+-----------------------
+
+To make sure the custom modules work properly with your data in the upgraded database, they need to
+be tested as well. This helps ensure both the standard and the custom data stored in the database
+are consistent and nothing was lost during the upgrade process.
+
+Some things to pay attention to:
+
+- Views not working: During the upgrade, if a view causes issues because of it's content, it gets
+  disabled. You can find the information of disabled views on the :ref:`upgraded report
+  <upgrade/upgrade_report>`. This views need to be activated again. To achieve this, we recommend
+  the use of migration scripts.
+- :doc:`Module data <../tutorials/define_module_data>` not updated: Custom records that have the
+  ``noupdate`` flag are not updated when upgrading the module in the new database. For the custom
+  data that needs to be specifically update due to changes in the new version, we recommend to use
+  migration scripts to do so.
+  .. TODO: add example update_record_from_xml
 
 
-.. _upgrade/testing_rehearsal:
+.. _upgrade_custom/testing_rehearsal:
 
 Testing and rehearsal
 =====================
 
+When the custom modules are working properly in the upgraded database, it is crucial to do another
+round of testing to assess the database usability and detect any issue that might have gone
+unnoticed in previous tests. For further information about testing the upgraded database, check 
+:ref:`upgrade/test_your_db`.
 
-.. After this step, it is crucial to do another :ref:`round of testing <upgrade/test_your_db>` to
-.. assess your database usability, as well as to detect any issue with the migrated data.
+As mentioned in :ref:`upgrade/upgrade-prod`, both standard upgrade scripts and your database are
+constantly evolving. Therefore it is highly recommended to frequently request new upgraded test
+databases and ensure that the upgrade process is still successful.
 
-TODO reminders of testing
+In adition to that, make a full rehearsal of the upgrade process the day before upgrading the
+production database to avoid an undesired behavior during the upgrade and to detect any issue that
+might have ocurred with the migrated data.
 
-TODO content rehearsal
 
-.. _upgrade/production:
+.. _upgrade_custom/production:
 
 Production upgrade
 ==================
 
-
-
-TODO content
-.. Once you are confident that upgrading your database will not cause any issue, you can proceed with
-.. the upgrade of your production database by following the process described on the
-.. :doc:`/administration/upgrade` page.
+Once you are confident about upgrading your production database, follow the process described on 
+:ref:`upgrade/upgrade-prod`, depending on the hosting type of your database.
