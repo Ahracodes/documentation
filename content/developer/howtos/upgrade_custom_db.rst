@@ -16,14 +16,13 @@ Upgrading a customized database
 
 Upgrading to a new version of Odoo can be challenging, especially if the database you work on
 contains custom modules. This page intent is to explain the technical process of upgrading a
-database with customized modules.
-
-For a standard overview, please refer to the :doc:`Upgrade documentation </administration/upgrade>`.
+database with customized modules. For a standard overview, please refer to the
+:doc:`Upgrade documentation </administration/upgrade>`.
 
 We consider a custom module, any module that extends the standard code of Odoo and that was not
 built with the Studio app. 
-Before upgrading those modules, or before asking for them to be upgraded, you might want to have a
-look at the :ref:`upgrade/sla` to make sure who's responsible for it.
+Before upgrading those modules, or before asking for them to be upgraded, have a look at the
+:ref:`upgrade/sla` to make sure who's responsible for it.
 
 While working on what we refer to as the **custom upgrade** of your database, keep in mind the goals
 of an upgrade:
@@ -34,11 +33,9 @@ of an upgrade:
 #. Reduce the technical debt
 #. Benefit from security improvements
 
-With every new version of Odoo comes a bunch of changes. All these changes can impact modules on
-which customization have been developed, which is the reason they need to be adapted.
-This is why upgrading a database that contains custom modules requires additional steps compared to
-a standard upgrade of an Odoo database, since the source code of the custom modules must be upgraded
-as well. 
+With every new version of Odoo, changes are introduced. These changes can have an impact modules on
+which customization have been developed. This is the reason why upgrading a database that contains
+custom modules requires additional steps in order to upgrade their source code.
 
 These are the steps to follow to upgrade customized databases:
 
@@ -79,9 +76,7 @@ Request an upgraded database
 
 Once the developments have stopped for the custom modules and the implemented features have been
 challenged to remove redundancy and unnecessary code, the next step is to request an upgraded test
-database.
-
-To request the upgraded test database, follow the steps mentioned in
+database. To request the upgraded test database, follow the steps mentioned in
 :ref:`upgrade/request-test-database`, depending on the hosting type of your database.
 
 The purpose of this stage is not to start working with the custom modules in the upgraded database,
@@ -93,12 +88,11 @@ testing the upgrade.
 
 .. _upgrade_custom/empty_database:
 
-[WIP] Empty database
-====================
+Empty database
+==============
 
 Before working on an upgraded test database, we recommend to make the custom developments work on an
-empty database in the targeted version of your upgrade.
-
+empty database in the targeted version of your upgrade. 
 This ensures that the customization is compatible with the new version of Odoo, allows to analyse
 how does it behave and interact with the new features, and guarantees that they will not cause any
 issue when upgrading the database.
@@ -184,9 +178,8 @@ Standard tests
 --------------
 
 Once the previous steps are completed, we advise to make sure all standard tests associated to the
-dependencies of the custom module pass.
-
-Standard tests ensure the validation of the code logic but they also prevent data corruption.
+dependencies of the custom module pass. 
+Standard tests ensure the validation of the code logic and prevent data corruption.
 They will help you identify bugs or unwanted behavior before you work on your database.
 
 In case there are standard test failing, we suggest to analyze the reason for their failure:
