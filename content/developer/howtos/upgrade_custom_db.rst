@@ -6,16 +6,17 @@
 Upgrading a customized database
 ===============================
 
+
 .. toctree::
     :titlesonly:
     :glob:
 
     upgrade/*
 
+
 Upgrading to a new version of Odoo can be challenging, especially if the database you work on
 contains custom modules. This page intent is to explain the technical process of upgrading a
-database with customized modules. For numerous years, Odoo has followed this process, reaping the
-rewards of continual improvements along the way.
+database with customized modules.
 
 For a standard overview, please refer to the :doc:`Upgrade documentation </administration/upgrade>`.
 
@@ -24,8 +25,8 @@ built with the Studio app.
 Before upgrading those modules, or before asking for them to be upgraded, you might want to have a
 look at the :ref:`upgrade/sla` to make sure who's responsible for it.
 
-While you work on what we refer to as the **custom upgrade** of your database, 
-you must keep in mind what the goals of an upgrade are:
+While working on what we refer to as the **custom upgrade** of your database, keep in mind the goals
+of an upgrade:
 
 #. Stay supported
 #. Get the latest features
@@ -33,14 +34,13 @@ you must keep in mind what the goals of an upgrade are:
 #. Reduce the technical debt
 #. Benefit from security improvements
 
-With every new version of Odoo comes a bunch of changes, it can be addition but sometimes it also
-contains refactorization. All those changes can impact modules on which you have previously
-developed customization which is why you will need to adapt them.
+With every new version of Odoo comes a bunch of changes. All these changes can impact modules on
+which customization have been developed, which is the reason they need to be adapted.
 This is why upgrading a database that contains custom modules requires additional steps compared to
-a standard upgrade of an Odoo database since the source code of the custom modules
-must be upgraded as well. 
+a standard upgrade of an Odoo database, since the source code of the custom modules must be upgraded
+as well. 
 
-Here are the steps we follow at Odoo to upgrade such databases:
+These are the steps to follow to upgrade customized databases:
 
 #. :ref:`Stop the devolopments and challenge them <upgrade_custom/stop_developments>`.
 #. :ref:`upgrade_custom/request_upgrade`.
@@ -55,26 +55,21 @@ Here are the steps we follow at Odoo to upgrade such databases:
 Stop the developments
 =====================
 
-Upgrade can be a tough process, starting it requires commitment and will block a significant amount
-of your development resources. If you decide to keep going for developments during that process, you
-will inevitably have to block resources for a longer time to work on the upgrade.
-Those features will need to be re-upgraded and tested, everytime you change them.
-
-This is why we recommend a complete freeze of the codebase when starting the upgrade process.
-Of course, you can still work on bugfix but developing new features is not productive.
+Starting an upgrade requires commitment and development resources need to be allocated to it. If
+developments keep being made at the same time, those features will need to be re-upgraded and tested
+everytime you change them. This is why we recommend a complete freeze of the codebase when starting
+the upgrade process. Needless to mention that bug fixing is exempt from this recommendation.
 
 Once you have stopped development, it is a good practice to assess the developments made and compare
 them with the features introduced between you current version and the version you are targeting.
 Challenge the developments as much as possible, find functionnal workarounds.
 Removing redundancy between your developments and the standard version of Odoo will lead to an eased
-upgrade process and reduce your technical debt.
-
+upgrade process and reduce the technical debt.
 
 .. note::
    You can find information on the changes between versions in the `release notes
-   <https:/odoo.com/page/release-notes>`_. 
-   Those may seem light at first but they will help you point out what needs to be checked during
-   the upgrade process.
+   <https:/odoo.com/page/release-notes>`_. Those may seem light at first but they will help point
+   out what needs to be checked during the upgrade process.
 
 
 .. _upgrade_custom/request_upgrade:
@@ -83,8 +78,8 @@ Request an upgraded database
 ============================
 
 Once the developments have stopped for the custom modules and the implemented features have been
-challenged to remove redundancy and unnecessary code, the next step of the upgrade process is to
-request an upgraded test database.
+challenged to remove redundancy and unnecessary code, the next step is to request an upgraded test
+database.
 
 To request the upgraded test database, follow the steps mentioned in
 :ref:`upgrade/request-test-database`, depending on the hosting type of your database.
@@ -115,11 +110,10 @@ the custom modules and that can raise unwanted issues in this stage of the upgra
 
 To make custom modules work on an empty database we advise to follow these steps:
 
-  - :ref:`Make them installable <upgrade_custom/empty_database/modules_installable>`
-  - :ref:`upgrade_custom/empty_database/test_fixes`
-  - :ref:`upgrade_custom/empty_database/clean_code`
-  - :ref:`Make standard tests run successfully <upgrade_custom/empty_database/standard_test>`
-
+- :ref:`upgrade_custom/empty_database/modules_installable`
+- :ref:`upgrade_custom/empty_database/test_fixes`
+- :ref:`upgrade_custom/empty_database/clean_code`
+- :ref:`Make standard tests run successfully <upgrade_custom/empty_database/standard_test>`
 
 .. _upgrade_custom/empty_database/modules_installable:
 
@@ -135,11 +129,11 @@ fix the tracebacks and warnings that arise from that.
 
 This process will help detect issues during the installation of the modules. For example:
 
-- Invalid module dependencies
+- Invalid module dependencies.
 - Syntax change: assets declaration, OWL updates, attrs.
-- References to standard fields, models not existing anymore or renamed.
-- Xpath that moved or were removed.
-- Methods renamed or removed .
+- References to standard fields, models, views not existing anymore or renamed.
+- Xpath that moved or were removed from views.
+- Methods renamed or removed.
 - ...
 
 .. _upgrade_custom/empty_database/test_fixes:
@@ -148,8 +142,8 @@ Test and fixes
 --------------
 
 Once there are no more tracebacks when installing the modules, the next step is to test them.
-Even if the custom modules are installable on an empty database, this does not warranties there are
-no errors during their execution. Because of this, we encourage to test thoroughly all the
+Even if the custom modules are installable on an empty database, this does not warranty there are no
+errors during their execution. Because of this, we encourage to test thoroughly all the
 customization to make sure everything is working as expected.
 
 This process will help detect further issues that are not identified during the module installation
@@ -158,11 +152,12 @@ functions, non existing references to standard fields, etc.
 
 We recommend to test all the customization, specially the following elements:
 
-  - Views
-  - Email templates
-  - Reports
-  - Server actions and automated actions
-  - Changes in the standard workflows
+- Views
+- Email templates
+- Reports
+- Server actions and automated actions
+- Changes in the standard workflows
+- Computed fields
 
 We also encourage to write automated tests to save time during the testing iterations, increase the
 test coverage, and ensure that the changes and fixes introduced do not break the existing flows.
@@ -177,11 +172,11 @@ Clean the code
 At this stage of the upgrade process, we also suggest to clean the code as much as possible.
 This includes: 
 
-  - Remove redundant and unnecessary code.
-  - Remove features that are now part of Odoo standard, as described in
-    :ref:`upgrade_custom/stop_developments`.
-  - Clean commented code if it is not needed anymore.
-  - Refactor the code (functions, fields, views, reports, etc.) if needed.
+- Remove redundant and unnecessary code.
+- Remove features that are now part of Odoo standard, as described in
+  :ref:`upgrade_custom/stop_developments`.
+- Clean commented code if it is not needed anymore.
+- Refactor the code (functions, fields, views, reports, etc.) if needed.
 
 .. _upgrade_custom/empty_database/standard_test:
 
@@ -196,9 +191,9 @@ They will help you identify bugs or unwanted behavior before you work on your da
 
 In case there are standard test failing, we suggest to analyze the reason for their failure:
 
-  - The customization changes the standard workflow: Adapt the standard test to your workflow
-  - The customization did not take into account a special flow: Adapt your customization to ensure
-    it works for all the standard workflows
+- The customization changes the standard workflow: Adapt the standard test to your workflow.
+- The customization did not take into account a special flow: Adapt your customization to ensure it
+  works for all the standard workflows.
 
 
 .. _upgrade_custom/upgraded_database:
@@ -224,23 +219,20 @@ Migrate the data
 During the upgrade of the custom modules, you might have to use :ref:`upgrade/migration-scripts`
 to reflect changes from the source code to their corresponding data.
 
-Any technical data that was renamed during the upgrade of the custom code (models, fields, external
-identifiers) should be renamed using migration scripts to avoid data loss during the module upgrade.
-.. TODO Example: rename_field, rename_model, rename_module, rename_xmlid
-
-Data from standard models removed in the source code of the newer Odoo version and from the database
-during the standard upgrade process, might need to be recovered from the old model table if it is
-stil present.
-.. TODO Add example with subscription or account.invoice
-
-Migration scripts can also be used to ease the processing time of an upgrade. For example, they can
-be used to store the value of computed stored fields on models with an excesive amount of records by
-using SQL queries.
-They can also be used to recompute fields in case the computation of their value has changed.
-.. TODO Example: recompute_fields
+- Any technical data that was renamed during the upgrade of the custom code (models, fields, external
+  identifiers) should be renamed using migration scripts to avoid data loss during the module upgrade.
+  .. TODO Example: rename_field, rename_model, rename_module, rename_xmlid
+- Data from standard models removed from the source code of the newer Odoo version and from the
+  database during the standard upgrade process might need to be recovered from the old model table
+  if it is stil present.
+  .. TODO Add example with subscription or account.invoice
 
 Migration scripts can also be used to:
 
+- Ease the processing time of an upgrade. For example, to store the value of computed stored fields
+  on models with an excesive amount of records by using SQL queries.
+- Recompute fields in case the computation of their value has changed.
+  .. TODO Example: recompute_fields
 - Uninstall unwanted custom modules.
   .. TODO Example: remove_module
 - Correct faulty data or wrong configurations.
@@ -254,16 +246,16 @@ To make sure the custom modules work properly with your data in the upgraded dat
 be tested as well. This helps ensure both the standard and the custom data stored in the database
 are consistent and nothing was lost during the upgrade process.
 
-Some things to pay attention to:
+Things to pay attention to:
 
 - Views not working: During the upgrade, if a view causes issues because of it's content, it gets
-  disabled. You can find the information of disabled views on the :ref:`upgraded report
+  disabled. You can find the information of disabled views on the :ref:`Upgraded report
   <upgrade/upgrade_report>`. This views need to be activated again. To achieve this, we recommend
   the use of migration scripts.
 - :doc:`Module data <../tutorials/define_module_data>` not updated: Custom records that have the
   ``noupdate`` flag are not updated when upgrading the module in the new database. For the custom
-  data that needs to be specifically update due to changes in the new version, we recommend to use
-  migration scripts to do so.
+  data that needs to be updated due to changes in the new version, we recommend to use migration
+  scripts to do so.
   .. TODO: add example update_record_from_xml
 
 
