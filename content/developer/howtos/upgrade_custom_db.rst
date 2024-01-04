@@ -7,11 +7,11 @@ Upgrading a customized database
 ===============================
 
 
-.. toctree::
-    :titlesonly:
-    :glob:
+.. todo:: toctree
+..     :titlesonly:
+..     :glob:
 
-    upgrade/*
+..     upgrade/*
 
 
 Upgrading to a new version of Odoo can be challenging, especially if the database you work on
@@ -115,11 +115,11 @@ Make custom modules installable
 -------------------------------
 
 The first step is to make the custom modules installable in the new Odoo version.
-This means, in a first instance, making sure there is no traceback or warnings when installing them.
+This means, starting by ensuring there are no tracebacks or warnings during their installation.
 For this, install the custom modules, one by one, in an empty database of the new Odoo version and
 fix the tracebacks and warnings that arise from that.
 
-.. TODO Re-check and explain better the examples, ideally add references to PR such as attrs change
+.. todo:: Add examples or references to PR such as attrs change
 
 This process will help detect issues during the installation of the modules. For example:
 
@@ -207,28 +207,28 @@ To make sure the custom code is working flawlessly in the new version, follow th
 Migrate the data
 ----------------
 
-.. TODO - Check
-
-During the upgrade of the custom modules, you might have to use :ref:`upgrade/migration-scripts`
-to reflect changes from the source code to their corresponding data.
+During the upgrade of the custom modules, you might have to use migration scripts to reflect changes
+from the source code to their corresponding data.
 
 - Any technical data that was renamed during the upgrade of the custom code (models, fields, external
   identifiers) should be renamed using migration scripts to avoid data loss during the module upgrade.
-  .. TODO Example: rename_field, rename_model, rename_module, rename_xmlid
 - Data from standard models removed from the source code of the newer Odoo version and from the
   database during the standard upgrade process might need to be recovered from the old model table
   if it is stil present.
-  .. TODO Add example with subscription or account.invoice
+
+.. todo:: Add example: rename_field, rename_model, rename_module, rename_xmlid
+.. todo:: Add example: sale.subscription and/or account.invoice
 
 Migration scripts can also be used to:
 
 - Ease the processing time of an upgrade. For example, to store the value of computed stored fields
   on models with an excesive amount of records by using SQL queries.
 - Recompute fields in case the computation of their value has changed.
-  .. TODO Example: recompute_fields
 - Uninstall unwanted custom modules.
-  .. TODO Example: remove_module
 - Correct faulty data or wrong configurations.
+
+.. todo:: Add example: recompute_fields
+.. todo:: Add example: remove_module
 
 .. _upgrade_custom/upgraded_database/test_custom:
 
@@ -249,7 +249,8 @@ Things to pay attention to:
   ``noupdate`` flag are not updated when upgrading the module in the new database. For the custom
   data that needs to be updated due to changes in the new version, we recommend to use migration
   scripts to do so.
-  .. TODO: add example update_record_from_xml
+
+.. todo:: add example update_record_from_xml
 
 
 .. _upgrade_custom/testing_rehearsal:
